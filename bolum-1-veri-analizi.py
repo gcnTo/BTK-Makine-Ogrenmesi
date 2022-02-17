@@ -39,16 +39,20 @@ cinsiyet = veriler.iloc[:,-1].values
 # Problemi görmek için for döngüsünü silip programı çalıştırmayı deneyebilirsiniz
 #   Alternatif bir çözüm olarak da cinsiyet verisine ait kod satırları kullanım
 # dışı bırakılabilir.
-for i in range(cinsiyet.size):
-    if(cinsiyet[i] == "k"):
-        cinsiyet[i] = 1
+
+cinsiyet_to_int = copy.copy(cinsiyet) # Orjinal cinsiyet verilerinin saklanması için
+                                      # oluşturulmuş kopya.
+
+for i in range(cinsiyet_to_int.size):
+    if(cinsiyet_to_int[i] == "k"):
+        cinsiyet_to_int[i] = 1
     else:
-        cinsiyet[i] = 0
+        cinsiyet_to_int[i] = 0
 
 # Sonuçların DataFrame Haline Dönüştürülmesi
 sonuc = pd.DataFrame(data=ulke, index = range(22), columns = ["fr","tr","us"])
 sonuc2 = pd.DataFrame(data=yas, index = range(22), columns = ["boy","kilo","yas"])
-sonuc3 = pd.DataFrame(data = cinsiyet, index = range(22), columns = ["cinsiyet"])
+sonuc3 = pd.DataFrame(data = cinsiyet_to_int, index = range(22), columns = ["cinsiyet"])
 
 # Sonuçların Birleştirilmesi
 s = pd.concat([sonuc,sonuc2], axis=1)
